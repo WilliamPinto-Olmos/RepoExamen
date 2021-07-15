@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\EstudianteController;
+use App\Http\Controllers\MateriaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +16,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('index');
+})->name('inicio');
+
+Route::post('estudiante/{estudiante}/addMateria', [EstudianteController::class, 'addMateria'])->name('estudiante.addMateria');
+Route::post('estudiante/{estudiante}/deleteMateria', [EstudianteController::class, 'deleteMateria'])->name('estudiante.deleteMateria');
+
+Route::resource('estudiante', EstudianteController::class);
+Route::resource('materia', MateriaController::class)->parameters(['materia' => 'materia']);
